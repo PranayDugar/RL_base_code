@@ -1,0 +1,18 @@
+.hypothesis
+.pytest_cache
+.vscode
+.mypy_cache
+.env
+.secrets
+**/__pycache__
+**/checkpoints
+lightning_logs
+poetry.lock
+
+#file format for when python is backing up a prior version of the codebase
+# before modification
+*.py.bak
+
+
+# keep folders that contain .gitkeep
+!**/.gitkeep
