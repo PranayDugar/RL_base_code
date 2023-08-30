@@ -1,6 +1,7 @@
 import gymnasium as gym
 import numpy as np
 import torch
+from Algo import Algorithm
 
 class EnvManager:
     def __init__(self, env_name):
@@ -8,16 +9,19 @@ class EnvManager:
         self.state_dim = self.env.observation_space.shape[0]
         self.action_dim = self.env.action_space.n
         
-    def reset(self):
-        return self.env.reset()
+    def reset(self, tensor=False, tensor_device='cpu'):
+        state = self.env.reset()
+        if tensor:
+            state = torch.tensor(state, dtype=torch.float32, device=tensor_device)
+        return state
     
     def step(self, action):
         return self.env.step(action)
     
-    def rollout(self, policy, num_episodes, max_steps=None, create_tensor=False, tensor_device=None):
+    def rollout(self, policy:Algorithm, num_episodes, max_steps=None, create_tensor=False, tensor_device=None):
         transitions = []
         for _ in range(num_episodes):
-            state, _ = self.reset()
+            state, _ = self.reset(tensor=True)
             done = False
             step_count = 0
             while not done:

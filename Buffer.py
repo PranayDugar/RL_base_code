@@ -9,7 +9,7 @@ class Buffer:
         self.actions = np.empty((capacity, action_shape), dtype=np.float32)
         self.rewards = np.empty((capacity,), dtype=np.float32)
         self.next_states = np.empty((capacity, state_shape), dtype=np.float32)
-        self.dones = np.empty((capacity,), dtype=np.bool)
+        self.dones = np.empty((capacity,), dtype=bool)
         self.index = 0
         self.size = 0
 

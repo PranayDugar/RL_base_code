@@ -50,8 +50,11 @@ class A2C(Algorithm):
             action = action_distribution.sample().item()
         return action
 
-    def get_action(self, state):
-        pass
+    def get_action(self, state, greedy=False):
+        if not greedy:
+            return self.get_sample_action(state)
+        else:
+            return self.get_max_action(state)
     
     def get_value(self, state):
         with torch.no_grad():
@@ -143,7 +146,7 @@ class A2C(Algorithm):
         
 
 if __name__ == "__main__":
-    env = Env("CartPole-v0")
+    env = Env("CartPole-v1")
     actor = Actor(env.state_dim, env.action_dim)
     critic = Critic(env.state_dim)
     algo = A2C(actor, critic, 0.001, 0.001, 0.99)

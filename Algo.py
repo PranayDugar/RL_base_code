@@ -9,7 +9,7 @@ import torch.optim as optim
 import numpy as np
 from abc import ABC, abstractmethod
 
-class Algorithm:
+class Algorithm(ABC):
     def __init__(self, actor, critic, learning_rate_actor, learning_rate_critic, discount_factor):
         self.actor = actor
         self.critic = critic
